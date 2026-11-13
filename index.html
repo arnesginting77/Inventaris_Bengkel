@@ -1,11 +1,318 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inventaris Alat Bengkel</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .header h2 {
+            color: #333;
+            margin-bottom: 7px;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .btn {
+            background: #f97316;
+            color: white;
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #ea580c;
+        }
+
+        .search {
+            width: 100%;
+            max-width: 320px;
+            padding: 11px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        thead {
+            background: #fff7ed;
+        }
+
+        th {
+            color: #c2410c;
+            font-size: 14px;
+            text-align: left;
+            padding: 15px;
+            border-bottom: 2px solid #fed7aa;
+        }
+
+        td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #eee;
+            color: #444;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #fffaf5;
+        }
+
+        .badge {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .baik {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .rusak {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .ringan {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .aksi {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-edit {
+            background: #2563eb;
+            color: white;
+            padding: 7px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-delete {
+            background: #dc2626;
+            color: white;
+            padding: 7px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 20px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .header h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Welcome to my repository</h1>
+
+<div class="container">
+
+    <div class="header">
+        <div>
+            <h2>Daftar Alat Bengkel</h2>
+            <p>Manajemen inventaris peralatan bengkel sekolah</p>
+        </div>
+
+        <a href="#" class="btn">+ Tambah Alat</a>
+    </div>
+
+    <input
+        type="text"
+        id="search"
+        class="search"
+        placeholder="Cari nama atau kode alat..."
+        onkeyup="cariAlat()"
+    >
+
+    <div class="table-responsive">
+        <table id="tabelAlat">
+
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kode Alat</th>
+                    <th>Nama Alat</th>
+                    <th>Kategori</th>
+                    <th>Jumlah</th>
+                    <th>Kondisi</th>
+                    <th>Lokasi</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>BRG-001</td>
+                    <td>Kunci Pas</td>
+                    <td>Perkakas Tangan</td>
+                    <td>25 Unit</td>
+                    <td><span class="badge baik">Baik</span></td>
+                    <td>Bengkel TSM</td>
+                    <td>
+                        <div class="aksi">
+                            <a href="#" class="btn-edit">Edit</a>
+                            <a href="#" class="btn-delete">Hapus</a>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>BRG-002</td>
+                    <td>Mesin Bor</td>
+                    <td>Mesin</td>
+                    <td>5 Unit</td>
+                    <td><span class="badge baik">Baik</span></td>
+                    <td>Bengkel TSM</td>
+                    <td>
+                        <div class="aksi">
+                            <a href="#" class="btn-edit">Edit</a>
+                            <a href="#" class="btn-delete">Hapus</a>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>BRG-003</td>
+                    <td>Obeng Plus</td>
+                    <td>Perkakas Tangan</td>
+                    <td>15 Unit</td>
+                    <td><span class="badge ringan">Rusak Ringan</span></td>
+                    <td>Bengkel TSM</td>
+                    <td>
+                        <div class="aksi">
+                            <a href="#" class="btn-edit">Edit</a>
+                            <a href="#" class="btn-delete">Hapus</a>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>BRG-004</td>
+                    <td>Mesin Las</td>
+                    <td>Mesin</td>
+                    <td>3 Unit</td>
+                    <td><span class="badge rusak">Rusak Berat</span></td>
+                    <td>Bengkel Las</td>
+                    <td>
+                        <div class="aksi">
+                            <a href="#" class="btn-edit">Edit</a>
+                            <a href="#" class="btn-delete">Hapus</a>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>BRG-005</td>
+                    <td>Kompressor</td>
+                    <td>Mesin</td>
+                    <td>2 Unit</td>
+                    <td><span class="badge baik">Baik</span></td>
+                    <td>Bengkel TSM</td>
+                    <td>
+                        <div class="aksi">
+                            <a href="#" class="btn-edit">Edit</a>
+                            <a href="#" class="btn-delete">Hapus</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="footer">
+        Menampilkan 5 data alat bengkel
+    </div>
+
+</div>
+
+<script>
+    function cariAlat() {
+        let input = document.getElementById("search");
+        let filter = input.value.toLowerCase();
+        let table = document.getElementById("tabelAlat");
+        let rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            let text = rows[i].textContent.toLowerCase();
+
+            rows[i].style.display =
+                text.includes(filter) ? "" : "none";
+        }
+    }
+</script>
+
 </body>
 </html>
